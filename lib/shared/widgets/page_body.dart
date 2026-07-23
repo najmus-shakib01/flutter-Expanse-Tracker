@@ -10,6 +10,7 @@ class PageBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScrollView(
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+      physics: const AlwaysScrollableScrollPhysics(),
       slivers: [
         SliverPadding(
           padding: const EdgeInsets.fromLTRB(

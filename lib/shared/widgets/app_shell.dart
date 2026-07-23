@@ -39,6 +39,7 @@ class AppShell extends StatelessWidget {
         final useRail = ResponsiveBreakpoints.useNavigationRail(
           constraints.maxWidth,
         );
+        final useExtendedRail = constraints.maxWidth >= 1100;
 
         return Scaffold(
           appBar: AppBar(
@@ -52,9 +53,12 @@ class AppShell extends StatelessWidget {
             children: [
               if (useRail)
                 NavigationRail(
+                  extended: useExtendedRail,
                   selectedIndex: navigationShell.currentIndex,
                   onDestinationSelected: _goToBranch,
-                  labelType: NavigationRailLabelType.all,
+                  labelType: useExtendedRail
+                      ? NavigationRailLabelType.none
+                      : NavigationRailLabelType.all,
                   destinations: [
                     for (final destination in _destinations)
                       NavigationRailDestination(
@@ -85,6 +89,7 @@ class AppShell extends StatelessWidget {
           floatingActionButton: navigationShell.currentIndex == 3
               ? null
               : FloatingActionButton.extended(
+                  tooltip: 'Add expense',
                   onPressed: () => context.goNamed(AppRoutes.addExpenseName),
                   icon: const Icon(Icons.add_rounded),
                   label: const Text('Add'),

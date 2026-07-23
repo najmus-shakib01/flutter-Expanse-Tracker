@@ -1,3 +1,4 @@
+import 'package:expense_tracker/core/preferences/app_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -6,9 +7,10 @@ final themeModeControllerProvider =
 
 class ThemeModeController extends Notifier<ThemeMode> {
   @override
-  ThemeMode build() => ThemeMode.system;
+  ThemeMode build() => AppPreferences.getThemeMode();
 
-  void setThemeMode(ThemeMode mode) {
+  Future<void> setThemeMode(ThemeMode mode) async {
     state = mode;
+    await AppPreferences.setThemeMode(mode);
   }
 }
